@@ -30,6 +30,23 @@ public class Treatment {
     @Column(length = 500)
     private String description;
 
+    public Treatment() {
+    }
+
+    public Treatment(
+            Animal animal,
+            Specialist specialist,
+            LocalDateTime performedAt,
+            TreatmentType type,
+            String description
+    ) {
+        this.animal = animal;
+        this.specialist = specialist;
+        this.performedAt = performedAt;
+        this.type = type;
+        this.description = description;
+    }
+
     public Long getId() { return id; }
     public Animal getAnimal() { return animal; }
     public void setAnimal(Animal animal) { this.animal = animal; }
