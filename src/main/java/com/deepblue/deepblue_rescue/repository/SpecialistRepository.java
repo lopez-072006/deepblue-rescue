@@ -1,3 +1,6 @@
+package com.deepblue.deepblue_rescue.repository;
+
+import com.deepblue.deepblue_rescue.domain.Specialist;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -12,7 +15,7 @@ public interface SpecialistRepository extends JpaRepository<Specialist, Long> {
         JOIN s.expertiseAreas e
         WHERE s.active = true
           AND LOWER(e.name) = LOWER(:expertiseName)
-        ORDER BY s.lastName ASC
+        ORDER BY s.firstName ASC
         """)
     List<Specialist> findActiveByExpertise(
             @Param("expertiseName") String expertiseName
