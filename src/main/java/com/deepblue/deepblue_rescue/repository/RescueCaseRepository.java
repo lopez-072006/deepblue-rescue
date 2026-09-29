@@ -10,6 +10,8 @@ import java.util.Optional;
 public interface RescueCaseRepository extends JpaRepository<RescueCase, Long> {
     Optional<RescueCase> findByCaseCode(String caseCode);
 
+    List<RescueCase> findByStatus(RescueStatus status);
+
     List<RescueCase> findByStatusOrderByRescueDateAsc(RescueStatus status);
 
     List<RescueCase> findByRescueCenterCode(String centerCode);
