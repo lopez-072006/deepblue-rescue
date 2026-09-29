@@ -1,5 +1,9 @@
+package com.deepblue.deepblue_rescue.domain;
+
 import jakarta.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -7,7 +11,7 @@ import java.util.Set;
 public class Specialist {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "professional_code", nullable = false, unique = true, length = 50)
@@ -26,19 +30,30 @@ public class Specialist {
     private boolean active;
 
     @ManyToMany
-    @JoinTable(
-        name = "specialist_expertise",
-        joinColumns = @JoinColumn(name = "specialist_id"),
-        inverseJoinColumns = @JoinColumn(name = "expertise_id")
-    )
+    @JoinTable(name = "specialist_expertise",
+            joinColumns = @JoinColumn(name = "specialist_id"),
+            inverseJoinColumns = @JoinColumn(name = "expertise_id"))
     private Set<Expertise> expertiseAreas = new HashSet<>();
+
+    @OneToMany(mappedBy = "specialist")
+    private List<Treatment> treatments = new ArrayList<>();
 
     public void addExpertise(Expertise expertise) {
         expertiseAreas.add(expertise);
         expertise.getSpecialists().add(this);
     }
 
-    @OneToMany(mappedBy = "specialist")
-    private List<Treatment> treatments = new ArrayList<>();
-
+    public Long getId() { return id; }
+    public String getProfessionalCode() { return professionalCode; }
+    public void setProfessionalCode(String professionalCode) { this.professionalCode = professionalCode; }
+    public String getFirstName() { return firstName; }
+    public void setFirstName(String firstName) { this.firstName = firstName; }
+    public String getLastName() { return lastName; }
+    public void setLastName(String lastName) { this.lastName = lastName; }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+    public boolean isActive() { return active; }
+    public void setActive(boolean active) { this.active = active; }
+    public Set<Expertise> getExpertiseAreas() { return expertiseAreas; }
+    public List<Treatment> getTreatments() { return treatments; }
 }
