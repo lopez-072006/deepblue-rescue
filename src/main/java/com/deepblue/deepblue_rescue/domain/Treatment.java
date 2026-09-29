@@ -1,3 +1,6 @@
+package com.deepblue.deepblue_rescue.domain;
+
+import com.deepblue.deepblue_rescue.TreatmentType;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
@@ -6,7 +9,7 @@ import java.time.LocalDateTime;
 public class Treatment {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -26,4 +29,16 @@ public class Treatment {
 
     @Column(length = 500)
     private String description;
+
+    public Long getId() { return id; }
+    public Animal getAnimal() { return animal; }
+    public void setAnimal(Animal animal) { this.animal = animal; }
+    public Specialist getSpecialist() { return specialist; }
+    public void setSpecialist(Specialist specialist) { this.specialist = specialist; }
+    public LocalDateTime getPerformedAt() { return performedAt; }
+    public void setPerformedAt(LocalDateTime performedAt) { this.performedAt = performedAt; }
+    public TreatmentType getType() { return type; }
+    public void setType(TreatmentType type) { this.type = type; }
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
 }

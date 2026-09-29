@@ -1,3 +1,6 @@
+package com.deepblue.deepblue_rescue.domain;
+
+import com.deepblue.deepblue_rescue.RescueStatus;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
@@ -6,7 +9,7 @@ import java.time.LocalDate;
 public class RescueCase {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "case_code", nullable = false, unique = true, length = 50)
@@ -26,13 +29,8 @@ public class RescueCase {
     @JoinColumn(name = "rescue_center_id", nullable = false)
     private RescueCenter rescueCenter;
 
-    @OneToOne(
-        mappedBy = "rescueCase",
-        cascade = CascadeType.ALL,
-        orphanRemoval = true,
-        fetch = FetchType.LAZY
-    )
-
+    @OneToOne(mappedBy = "rescueCase", cascade = CascadeType.ALL,
+            orphanRemoval = true, fetch = FetchType.LAZY)
     private Animal animal;
 
     public void assignAnimal(Animal animal) {
@@ -40,4 +38,16 @@ public class RescueCase {
         animal.setRescueCase(this);
     }
 
+    public Long getId() { return id; }
+    public String getCaseCode() { return caseCode; }
+    public void setCaseCode(String caseCode) { this.caseCode = caseCode; }
+    public LocalDate getRescueDate() { return rescueDate; }
+    public void setRescueDate(LocalDate rescueDate) { this.rescueDate = rescueDate; }
+    public String getRescueLocation() { return rescueLocation; }
+    public void setRescueLocation(String rescueLocation) { this.rescueLocation = rescueLocation; }
+    public RescueStatus getStatus() { return status; }
+    public void setStatus(RescueStatus status) { this.status = status; }
+    public RescueCenter getRescueCenter() { return rescueCenter; }
+    public void setRescueCenter(RescueCenter rescueCenter) { this.rescueCenter = rescueCenter; }
+    public Animal getAnimal() { return animal; }
 }

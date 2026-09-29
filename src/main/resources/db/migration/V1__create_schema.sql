@@ -38,23 +38,6 @@ CREATE TABLE animals (
 
     CONSTRAINT fk_animals_rescue_case FOREIGN KEY (rescue_case_id) REFERENCES rescue_cases(id)
 
-/*.
-.
-.
-.
-.
-.
-.
-    HACE FALTA PONER EL CHECK DE SEX
-.
-.
-.
-.
-.
-.
-.
-.
-.*/
 
 );
 
@@ -116,23 +99,6 @@ CREATE TABLE treatments (
         FOREIGN KEY (specialist_id)
         REFERENCES specialists(id)
 
-/*.
-.
-.
-.
-.
-.
-.
-    HACE FALTA PONER EL CHECK DE TYPE
-.
-.
-.
-.
-.
-.
-.
-.
-.*/
 );
 
 CREATE INDEX idx_rescue_cases_rescue_center_id

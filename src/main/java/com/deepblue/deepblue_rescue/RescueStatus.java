@@ -1,3 +1,5 @@
+package com.deepblue.deepblue_rescue;
+
 public enum RescueStatus {
 
     ADMITTED,
