@@ -54,6 +54,7 @@ void shouldHaveExecutedFlywayMigrations() {
             SELECT COUNT(*)
             FROM flyway_schema_history
             WHERE version = '1'
+              AND success = TRUE
             """,
             Integer.class
     );
@@ -63,6 +64,7 @@ void shouldHaveExecutedFlywayMigrations() {
             SELECT COUNT(*)
             FROM flyway_schema_history
             WHERE version = '2'
+              AND success = TRUE
             """,
             Integer.class
     );
@@ -569,5 +571,61 @@ void shouldRejectDuplicateAnimalCode() {
             animalRepository.saveAndFlush(animal2)
     ).isInstanceOf(DataIntegrityViolationException.class);
 }
+
+@Test
+void shouldRejectRescueCaseWithNonexistentRescueCenter() {
+
+    assertThatThrownBy(() -> jdbcTemplate.update(
+            """
+            INSERT INTO rescue_cases
+                (case_code, rescue_date, rescue_location, status, rescue_center_id)
+            VALUES (?, ?, ?, ?, ?)
+            """,
+            "RES-INVALID-CENTER",
+            LocalDate.of(2026, 9, 28),
+            "Santa Marta",
+            "ADMITTED",
+            -99999L
+    )).isInstanceOf(DataIntegrityViolationException.class);
+}
+
+@Test
+void shouldRejectRescueCaseWithStatusOutsideCheckConstraint() {
+
+    RescueCenter center = new RescueCenter();
+    center.setCode("DB-CHECK");
+    center.setName("Check Constraint Test Center");
+    center.setCity("Santa Marta");
+    RescueCenter savedCenter = rescueCenterRepository.saveAndFlush(center);
+
+    assertThatThrownBy(() -> jdbcTemplate.update(
+            """
+            INSERT INTO rescue_cases
+                (case_code, rescue_date, rescue_location, status, rescue_center_id)
+            VALUES (?, ?, ?, ?, ?)
+            """,
+            "RES-INVALID-STATUS",
+            LocalDate.of(2026, 9, 28),
+            "Santa Marta",
+            "INVALID_STATUS",
+            savedCenter.getId()
+    )).isInstanceOf(DataIntegrityViolationException.class);
+}
+
+}
+
+/*
+.
+.
+.
+.
+BASICAMENTE QUEDAMOS EN EL PASO 63.
+.
+.
+.
+.
+.
+.
+*/
 
 }

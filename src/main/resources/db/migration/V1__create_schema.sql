@@ -10,7 +10,7 @@ CREATE TABLE rescue_cases (
     case_code VARCHAR(50) NOT NULL UNIQUE,
     rescue_date DATE NOT NULL,
     rescue_location VARCHAR(150) NOT NULL,
-    status VARCHAR (30N) NOT NULL,
+    status VARCHAR (30) NOT NULL,
     rescue_center_id BIGINT NOT NULL,
 
     CONSTRAINT fk_rescue_cases_center FOREIGN KEY (rescue_center_id) REFERENCES rescue_centers(id),
@@ -23,7 +23,7 @@ CREATE TABLE rescue_cases (
                 'IN_REHABILITATION',
                 'READY_FOR_RELEASE',
                 'RELEASED',
-                'CLOSED',
+                'CLOSED'
             )
         )
 );
@@ -36,7 +36,7 @@ CREATE TABLE animals (
     sex VARCHAR(20),
     rescue_case_id BIGINT UNIQUE,
 
-    CONSTRAINT fk_animals_rescue_center FOREIGN KEY rescue_case_id REFERENCES rescue_cases(id)
+    CONSTRAINT fk_animals_rescue_case FOREIGN KEY (rescue_case_id) REFERENCES rescue_cases(id)
 
 /*.
 .
