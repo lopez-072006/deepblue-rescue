@@ -24,13 +24,13 @@ import org.springframework.dao.DataIntegrityViolationException;
 @Transactional
 class PersistenceIntegrationTest {
 
-    @Container
-    @ServiceConnection
-    static final PostgreSQLContainer postgres =
-            new PostgreSQLContainer("postgres:18-alpine")
-                    .withDatabaseName("deepblue_test")
-                    .withUsername("deepblue")
-                    .withPassword("deepblue");
+        @Container
+        @ServiceConnection
+        static final PostgreSQLContainer postgres =
+                new PostgreSQLContainer("postgres:18-alpine")
+                        .withDatabaseName("deepblue_test")
+                        .withUsername("deepblue")
+                        .withPassword("deepblue");
 
 @Autowired
 private RescueCenterRepository rescueCenterRepository;
