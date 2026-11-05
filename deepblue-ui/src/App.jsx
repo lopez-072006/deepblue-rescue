@@ -1,0 +1,4 @@
+import { useState } from 'react'
+import CaseList from './components/CaseList'
+import CaseDetail from './components/CaseDetail'
+export default function App(){const [selected,setSelected]=useState(null);return <><header><div className="brand-mark">DB</div><div><p className="eyebrow">CENTRO DE OPERACIONES</p><h1>DeepBlue <span>Rescue</span></h1></div><div className="header-note">Cuidado y seguimiento de fauna rescatada</div></header><main className="layout"><CaseList selected={selected} onSelect={setSelected}/>{selected?<CaseDetail caseItem={selected} onChanged={setSelected}/>:<section className="welcome"><div className="welcome-icon">✦</div><h2>Panel de rescate</h2><p>Selecciona un caso para consultar el animal, revisar sus tratamientos y actualizar su seguimiento.</p></section>}</main><footer>DeepBlue Rescue <span>•</span> Gestión de atención y rehabilitación</footer></>}

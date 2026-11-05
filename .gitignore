@@ -31,3 +31,14 @@ build/
 
 ### VS Code ###
 .vscode/
+
+
+# Caché de npm
+**/.npm-cache/
+
+# Dependencias del frontend
+**/node_modules/
+
+# Archivos generados
+**/dist/
+**/build/

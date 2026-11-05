@@ -23,7 +23,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 @SpringBootTest
 @Transactional
 class PersistenceIntegrationTest {
-
         @Container
         @ServiceConnection
         static final PostgreSQLContainer postgres =

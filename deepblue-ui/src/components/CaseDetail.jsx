@@ -1,0 +1,6 @@
+import { useAnimal } from '../hooks/useAnimal'
+import ChangeStatus from './ChangeStatus'
+import ErrorMessage from './ErrorMessage'
+import TreatmentList from './TreatmentList'
+import TreatmentForm from './TreatmentForm'
+export default function CaseDetail({caseItem,onChanged}) { const {animal,treatments,eligibility}=useAnimal(caseItem.animalCode); return <div><section><h2>Caso {caseItem.caseCode}</h2><p><strong>Estado:</strong> {caseItem.status}<br/><strong>Centro:</strong> {caseItem.centerCode}<br/><strong>Lugar:</strong> {caseItem.rescueLocation}<br/><strong>Fecha:</strong> {caseItem.rescueDate}</p></section><ChangeStatus key={caseItem.caseCode} caseItem={caseItem} onChanged={onChanged}/><section><h3>Animal {caseItem.animalCode||'sin asignar'}</h3>{!caseItem.animalCode&&<p>Este caso aún no tiene un animal asociado.</p>}{animal.isPending&&<p>Cargando…</p>}{animal.isError&&<ErrorMessage error={animal.error}/ >}{animal.data&&<ul>{Object.entries(animal.data).map(([k,v])=><li key={k}><strong>{k}:</strong> {String(v??'—')}</li>)}</ul>}{eligibility.data&&<p>Puede recibir tratamiento: <span className={eligibility.data.eligible?'ok':'bad'}>{eligibility.data.eligible?'Sí':'No'}</span></p>}</section>{caseItem.animalCode&&<><TreatmentList query={treatments}/><TreatmentForm key={caseItem.animalCode} animalCode={caseItem.animalCode}/></>}</div> }
